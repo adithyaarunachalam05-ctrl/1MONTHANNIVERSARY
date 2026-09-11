@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Month 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFF3F1;
+    --bg-deep: #FFE4E4;
+    --surface: #FFFFFF;
+    --red: #E0384D;
+    --red-dark: #B8283A;
+    --red-deep: #8E1F2C;
+    --pink: #FFD6DC;
+    --pink-soft: #FFEDEF;
+    --ink: #3A2426;
+    --muted: #97676C;
+    --shadow: rgba(184, 40, 58, 0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    min-height:100vh;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 15% 20%, var(--bg-deep) 0%, transparent 40%),
+      radial-gradient(circle at 85% 80%, var(--pink) 0%, transparent 45%),
+      var(--bg);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Baloo 2', sans-serif;
+  }
+
+  button{ font-family: inherit; cursor: pointer; }
+
+  ::selection{ background: var(--pink); color: var(--red-deep); }
+
+  /* ---------- floating paw background ---------- */
+  .paws{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+  .paws span{
+    position: absolute;
+    font-size: 22px;
+    color: var(--red);
+    opacity: 0.25;
+    transform: rotate(var(--r, 0deg));
+  }
+
+  /* ---------- screens ---------- */
+  .screen{
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .hidden{ display: none !important; }
+
+  /* ---------- Toro mascot (original simple illustration, cat + bow motif) ---------- */
+  .toro{ display:block; margin: 0 auto; }
+  .toro-blink{ animation: blink 4.5s infinite; transform-origin: center; }
+  @keyframes blink{
+    0%, 92%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+  }
+
+  /* ---------- lock screen ---------- */
+  .lock-card{
+    background: var(--surface);
+    border-radius: 28px;
+    padding: 40px 34px 34px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 50px var(--shadow);
+    border: 2px solid var(--pink);
+  }
+  .lock-card h1{
+    font-size: 26px;
+    margin: 18px 0 6px;
+    color: var(--red-deep);
+  }
+  .lock-card p.sub{
+    margin: 0 0 22px;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .pw-row{
+    display:flex;
+    gap: 8px;
+  }
+  input[type="password"], input[type="text"]{
+    flex: 1;
+    border: 2px solid var(--pink);
+    background: var(--pink-soft);
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s, background .2s;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  input[type="password"]:focus, input[type="text"]:focus{
+    border-color: var(--red);
+    background: #fff;
+  }
+  .btn{
+    border: none;
+    border-radius: 14px;
+    padding: 13px 20px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 8px 18px var(--shadow);
+    transition: transform .15s ease, background .2s ease;
+  }
+  .btn:hover{ background: var(--red-dark); transform: translateY(-1px); }
+  .btn:active{ transform: translateY(0); }
+
+  #lock-error{
+    margin-top: 14px;
+    color: var(--red-dark);
+    font-size: 13.5px;
+    font-weight: 700;
+    min-height: 18px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  #lock-error.show{ opacity: 1; }
+  .shake{ animation: shake .4s; }
+  @keyframes shake{
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* ---------- app shell ---------- */
+  .app{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 26px 20px 70px;
+  }
+  header.top{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 22px;
+    gap: 6px;
+  }
+  header.top h1{
+    font-size: 30px;
+    margin: 10px 0 0;
+    color: var(--red-deep);
+  }
+  header.top .date-sub{
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .2px;
+  }
+
+  nav.tabs{
+    display:flex;
+    justify-content:center;
+    gap: 10px;
+    margin: 22px 0 30px;
+    flex-wrap: wrap;
+  }
+  nav.tabs button{
+    border: 2px solid var(--pink);
+    background: var(--surface);
+    color: var(--red-deep);
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14.5px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    transition: all .2s ease;
+  }
+  nav.tabs button.active{
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    box-shadow: 0 8px 18px var(--shadow);
+  }
+  nav.tabs button:hover:not(.active){ background: var(--pink-soft); }
+
+  section.panel{ animation: fadein .35s ease; }
+  @keyframes fadein{ from{ opacity:0; transform: translateY(8px);} to{opacity:1; transform:none;} }
+
+  /* ---------- gallery ---------- */
+  .gallery-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+  }
+  .memory{
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 12px 12px 16px;
+    box-shadow: 0 10px 26px var(--shadow);
+    border: 2px solid var(--pink);
+    transition: transform .2s ease, box-shadow .2s ease;
+    cursor: pointer;
+  }
+  .memory:hover{
+    transform: translateY(-4px) rotate(-0.4deg);
+    box-shadow: 0 16px 32px var(--shadow);
+  }
+  .memory .frame{
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--pink-soft), var(--pink));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom: 10px;
+  }
+  .memory .frame img{
+    width:100%; height:100%; object-fit: contain;; display:block;
+  }
+  .memory .frame .ph{
+    color: var(--red-dark);
+    opacity: .55;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+  }
+  .memory .cap-date{
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 3px;
+  }
+  .memory .cap-text{
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  /* lightbox */
+  .lightbox{
+    position: fixed; inset:0; z-index: 50;
+    background: rgba(58,36,38,0.55);
+    display:flex; align-items:center; justify-content:center;
+    padding: 20px;
+  }
+  .lightbox .box{
+    background: var(--surface);
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    padding: 16px;
+    text-align:center;
+  }
+  .lightbox .frame{
+    width:100%; border-radius: 14px; overflow:hidden;
+    background: linear-gradient(135deg, var(--pink-soft), var(--pink));
+    aspect-ratio: 4/3;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 14px;
+  }
+  .lightbox img{ width:100%; height:100%; object-fit:cover; }
+  .lightbox .cap-date{ color: var(--red); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .06em;}
+  .lightbox .cap-text{ margin-top: 6px; font-size: 15px; }
+  .lightbox .close-x{
+    margin-top: 14px; border:none; background: var(--pink-soft);
+    color: var(--red-deep); font-weight: 700; padding: 9px 18px; border-radius: 12px;
+  }
+
+  /* ---------- letter section ---------- */
+  .letter-stage{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    min-height: 420px;
+    perspective: 1400px;
+  }
+  .prompt-text{
+    text-align:center;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin-bottom: 22px;
+  }
+
+  .envelope-wrap{
+    width: 300px;
+    max-width: 86vw;
+    cursor: pointer;
+    transition: transform .25s ease;
+  }
+  .envelope-wrap:hover{ transform: scale(1.03); }
+  .envelope-wrap.opened{ pointer-events: none; }
+
+  .envelope{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/2;
+  }
+  .env-back{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, #ffffff, var(--pink-soft));
+    border-radius: 12px;
+    box-shadow: 0 16px 34px var(--shadow);
+    border: 2px solid var(--pink);
+    overflow: hidden;
+  }
+  .env-back::before, .env-back::after{
+    content:"";
+    position:absolute;
+    top:0; width:50%; height:100%;
+    background: rgba(224,56,77,0.06);
+  }
+  .env-back::before{ left:0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+  .env-back::after{ right:0; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+
+  .letter-paper{
+    position:absolute;
+    left: 6%; right:6%;
+    top: 10%;
+    height: 82%;
+    background: #fffaf8;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transform: translateY(6%);
+    transition: transform .55s cubic-bezier(.22,1,.36,1);
+    z-index: 1;
+  }
+  .envelope-wrap.opened .letter-paper{
+    transform: translateY(-78%);
+  }
+
+  .env-flap{
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 55%;
+    background: linear-gradient(180deg, var(--pink), #ffc9d1);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .6s cubic-bezier(.4,0,.2,1);
+    z-index: 3;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  .envelope-wrap.opened .env-flap{
+    transform: rotateX(180deg);
+  }
+
+  .seal{
+    position:absolute;
+    top: 42%; left:50%;
+    width: 46px; height:46px;
+    background: var(--red);
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 4px 10px rgba(184,40,58,0.4);
+    z-index: 4;
+    transition: opacity .3s ease, transform .4s ease;
+    font-size: 20px;
+  }
+  .envelope-wrap.opened .seal{
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(0.3) rotate(30deg);
+  }
+
+  .toro-peek{
+    position:absolute;
+    bottom: -6px; right: 8%;
+    width: 54px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .4s ease .3s, transform .4s ease .3s;
+    z-index: 2;
+  }
+  .envelope-wrap.opened .toro-peek{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tap-hint{
+    text-align:center;
+    margin-top: 16px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--red);
+    opacity: .8;
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:.5;} 50%{opacity:1;} }
+  .envelope-wrap.opened + .tap-hint{ display:none; }
+
+  .letter-full{
+    display:none;
+    max-width: 520px;
+    width: 100%;
+    background: #fffaf8;
+    border-radius: 18px;
+    padding: 36px 30px;
+    box-shadow: 0 20px 46px var(--shadow);
+    border: 2px solid var(--pink);
+    position: relative;
+    animation: riseup .5s ease;
+  }
+  @keyframes riseup{ from{ opacity:0; transform: translateY(18px);} to{opacity:1; transform:none;} }
+  .letter-full.show{ display:block; }
+  .letter-full .heart-rule{
+    text-align:center;
+    color: var(--red);
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+  .letter-full .body-text{
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--ink);
+    white-space: pre-line;
+  }
+  .letter-full .signoff{
+    margin-top: 22px;
+    text-align: right;
+    font-family: 'Baloo 2', sans-serif;
+    color: var(--red-deep);
+    font-size: 18px;
+  }
+  .close-letter{
+    display:block;
+    margin: 26px auto 0;
+    background: none;
+    border: 2px solid var(--pink);
+    color: var(--red-deep);
+    font-weight: 700;
+    padding: 9px 20px;
+    border-radius: 12px;
+  }
+  .close-letter:hover{ background: var(--pink-soft); }
+
+  footer.credit{
+    text-align:center;
+    margin-top: 50px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="paws" id="paws"></div>
+
+<!-- ============= LOCK SCREEN ============= -->
+<div class="screen" id="lock-screen">
+  <div class="lock-card">
+    <svg class="toro" width="86" height="86" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="58" rx="34" ry="30" fill="#fff" stroke="#3A2426" stroke-width="2.2"/>
+      <path d="M22 38 L30 14 L42 34 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M78 38 L70 14 L58 34 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+      <g class="toro-blink">
+        <path d="M36 56 Q40 51 44 56" fill="none" stroke="#3A2426" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M56 56 Q60 51 64 56" fill="none" stroke="#3A2426" stroke-width="2.4" stroke-linecap="round"/>
+      </g>
+      <ellipse cx="50" cy="64" rx="3.4" ry="2.6" fill="#E0384D"/>
+      <path d="M50 67 Q46 72 41 70 M50 67 Q54 72 59 70" fill="none" stroke="#3A2426" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M14 60 L34 58 M14 66 L34 64 M66 58 L86 60 M66 64 L86 66" stroke="#3A2426" stroke-width="1.3" stroke-linecap="round"/>
+      <g transform="translate(50,40)">
+        <path d="M0 0 L-11 -8 L-9 1 L-11 9 Z" fill="#E0384D" stroke="#8E1F2C" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M0 0 L11 -8 L9 1 L11 9 Z" fill="#E0384D" stroke="#8E1F2C" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="4.4" fill="#B8283A"/>
+      </g>
+    </svg>
+    <h1>HAPPY ONE MONTH PRINCESS ❤️</h1>
+    <p class="sub">a little something for our first month together.<br>type the password to open it 🤍</p>
+    <div class="pw-row">
+      <input type="password" id="pw-input" placeholder="password" maxlength="20" autocomplete="off">
+      <button class="btn" id="pw-btn">Open</button>
+    </div>
+    <div id="lock-error">that's not quite it — try again 🎀</div>
+  </div>
+</div>
+
+<!-- ============= MAIN APP ============= -->
+<div class="app hidden" id="app">
+  <header class="top">
+    <svg class="toro" width="64" height="64" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="58" rx="34" ry="30" fill="#fff" stroke="#3A2426" stroke-width="2.2"/>
+      <path d="M22 38 L30 14 L42 34 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M78 38 L70 14 L58 34 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M36 56 Q40 51 44 56" fill="none" stroke="#3A2426" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M56 56 Q60 51 64 56" fill="none" stroke="#3A2426" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="50" cy="64" rx="3.4" ry="2.6" fill="#E0384D"/>
+      <path d="M50 67 Q46 72 41 70 M50 67 Q54 72 59 70" fill="none" stroke="#3A2426" stroke-width="1.6" stroke-linecap="round"/>
+      <g transform="translate(50,40)">
+        <path d="M0 0 L-11 -8 L-9 1 L-11 9 Z" fill="#E0384D" stroke="#8E1F2C" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M0 0 L11 -8 L9 1 L11 9 Z" fill="#E0384D" stroke="#8E1F2C" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="4.4" fill="#B8283A"/>
+      </g>
+    </svg>
+    <!-- EDIT HERE: change the title + subtitle -->
+    <h1>One Month 🤍</h1>
+    <div class="date-sub">archives of our first month</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="gallery">🐾 Gallery</button>
+    <button class="tab-btn" data-tab="letter">💌 Letter</button>
+  </nav>
+
+  <!-- ============= GALLERY ============= -->
+  <section class="panel" id="panel-gallery">
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </section>
+
+  <!-- ============= LETTER ============= -->
+  <section class="panel hidden" id="panel-letter">
+    <div class="letter-stage">
+      <p class="prompt-text">tap the envelope, love 🎀</p>
+
+      <div class="envelope-wrap" id="envelope-wrap">
+        <div class="envelope">
+          <div class="letter-paper"></div>
+          <div class="env-back"></div>
+          <div class="env-flap"></div>
+          <div class="seal">🎀</div>
+          <svg class="toro-peek" viewBox="0 0 100 70">
+            <path d="M20 70 Q20 30 50 30 Q80 30 80 70 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2"/>
+            <path d="M28 32 L22 16 L36 28 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M72 32 L78 16 L64 28 Z" fill="#fff" stroke="#3A2426" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M40 44 Q44 40 48 44" fill="none" stroke="#3A2426" stroke-width="2" stroke-linecap="round"/>
+            <path d="M52 44 Q56 40 60 44" fill="none" stroke="#3A2426" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="50" cy="50" rx="2.6" ry="2" fill="#E0384D"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tap-hint">tap to open ✨</div>
+
+      <!-- ============= FULL LETTER CARD ============= -->
+      <div class="letter-full" id="letter-full">
+        <div class="heart-rule">— ♥ —</div>
+        <!-- EDIT HERE: replace this with the letter you wrote her. Keep the blank lines for paragraph breaks. -->
+        <div class="body-text" id="letter-body">To my princess,
+I cannot genuinely believe its been a month since we've been together AND TIMES GOING RLLY FAST (im not complaining tho that means i get to see you faster hehe)
+BUT STILL ITS PRETTY CRAZY TO ME IT FEELS LIKE I ASKED YOU OUT YESTERDAY!! I genuinely miss you so so much and I hope you realize that and you mean so much to me and I will always be by your side too :)
+and I REALLY HOPE THIS THING I MADE FOR YOU FOR OUR ONE MONTH ANNIVERSARY REALLY PROVES IT A LITTLE ATLEAST. HAPPY ONE MONTH MY BABY I LOVE YOU SOSO MUCH MORE THAN YOU LOVE ME AND MORE THAN EVERYTHING IN THE WORLD!!
+</div>
+        <div class="signoff">— all yours Adithya 🤍</div>
+        <button class="close-letter" id="close-letter">close the letter</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="credit">made with 🤍 for our one month</footer>
+</div>
+
+<!-- ============= LIGHTBOX (shown via JS) ============= -->
+<div class="lightbox hidden" id="lightbox">
+  <div class="box">
+    <div class="frame" id="lightbox-frame"></div>
+    <div class="cap-date" id="lightbox-date"></div>
+    <div class="cap-text" id="lightbox-text"></div>
+    <button class="close-x" id="lightbox-close">close</button>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   EDIT ZONE #1 — PASSWORD
+   ========================================================= */
+const PASSWORD = "1month";
+
+/* =========================================================
+   EDIT ZONE #2 — YOUR MEMORIES
+   Add one object per photo/memory. To use your own photos:
+     1. Make a folder called "photos" next to this index.html file
+     2. Put your images inside it (e.g. photos/1.jpg, photos/2.jpg ...)
+     3. Set "img" below to that path, e.g. img: "photos/1.jpg"
+   If you leave "img" as an empty string, a placeholder box shows instead
+   so the page never looks broken while you're still adding photos.
+   ========================================================= */
+const memories = [
+  { img: "photos/1.jpg", date: "24/07/2026", caption: "THIS PICTURE MEANS A LOT TO ME ( I STILL WISHED U ASKED ME OUT AT THE BEACH THO ) " },
+  { img: "photos/2.jpg", date: "12/08/2026", caption: "THIS WAS THE PIC WHERE I HAD THE MOST FEELINGS FOR YOU AND THE DAY WHERE WE GOT TOGETHER OFCOURSE" },
+  { img: "photos/3.jpg", date: "17/08/2026", caption: "THIS ONE WAS TOO CUTE FOR ME TO NOT USE I WISH WE TOOK MORE HERE" },
+  { img: "photos/4.jpg", date: "17/08/2026", caption: "i js started to realize you were gonna go long distance on this one BUT I LOVE THIS PICTURE SOSO MUCH AS MUCH AS I LOVE YOU" }
+];
+
+/* ========================================================= */
+
+const galleryGrid = document.getElementById("gallery-grid");
+memories.forEach((m, i) => {
+  const card = document.createElement("div");
+  card.className = "memory";
+  card.innerHTML = `
+    <div class="frame">
+      ${m.img ? `<img src="${m.img}" alt="${m.caption}">` : `<div class="ph">add a photo here<br>(photos/${i+1}.jpg)</div>`}
+    </div>
+    <div class="cap-date">${m.date}</div>
+    <div class="cap-text">${m.caption}</div>
+  `;
+  card.addEventListener("click", () => openLightbox(m, i));
+  galleryGrid.appendChild(card);
+});
+
+function openLightbox(m, i){
+  document.getElementById("lightbox-frame").innerHTML = m.img
+    ? `<img src="${m.img}" alt="${m.caption}">`
+    : `<div class="ph" style="color:#B8283A;opacity:.6;font-weight:700;">add a photo here<br>(photos/${i+1}.jpg)</div>`;
+  document.getElementById("lightbox-date").textContent = m.date;
+  document.getElementById("lightbox-text").textContent = m.caption;
+  document.getElementById("lightbox").classList.remove("hidden");
+}
+document.getElementById("lightbox-close").addEventListener("click", () => {
+  document.getElementById("lightbox").classList.add("hidden");
+});
+document.getElementById("lightbox").addEventListener("click", (e) => {
+  if(e.target.id === "lightbox") e.target.classList.add("hidden");
+});
+
+/* ---------- password gate ---------- */
+const lockScreen = document.getElementById("lock-screen");
+const app = document.getElementById("app");
+const pwInput = document.getElementById("pw-input");
+const pwBtn = document.getElementById("pw-btn");
+const lockError = document.getElementById("lock-error");
+const lockCard = document.querySelector(".lock-card");
+
+function tryUnlock(){
+  if(pwInput.value.trim().toLowerCase() === PASSWORD.toLowerCase()){
+    lockScreen.classList.add("hidden");
+    app.classList.remove("hidden");
+    sessionStorage.setItem("unlocked", "yes");
+  } else {
+    lockError.classList.add("show");
+    lockCard.classList.remove("shake");
+    void lockCard.offsetWidth;
+    lockCard.classList.add("shake");
+    pwInput.value = "";
+    pwInput.focus();
+  }
+}
+pwBtn.addEventListener("click", tryUnlock);
+pwInput.addEventListener("keydown", (e) => { if(e.key === "Enter") tryUnlock(); });
+
+if(sessionStorage.getItem("unlocked") === "yes"){
+  lockScreen.classList.add("hidden");
+  app.classList.remove("hidden");
+}
+
+/* ---------- tabs ---------- */
+const tabButtons = document.querySelectorAll(".tab-btn");
+const panels = {
+  gallery: document.getElementById("panel-gallery"),
+  letter: document.getElementById("panel-letter"),
+};
+tabButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    tabButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    Object.values(panels).forEach(p => p.classList.add("hidden"));
+    panels[btn.dataset.tab].classList.remove("hidden");
+  });
+});
+
+/* ---------- envelope opening ---------- */
+const envelopeWrap = document.getElementById("envelope-wrap");
+const letterFull = document.getElementById("letter-full");
+const closeLetterBtn = document.getElementById("close-letter");
+
+envelopeWrap.addEventListener("click", () => {
+  if(envelopeWrap.classList.contains("opened")) return;
+  envelopeWrap.classList.add("opened");
+  setTimeout(() => {
+    letterFull.classList.add("show");
+    letterFull.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 650);
+});
+
+closeLetterBtn.addEventListener("click", () => {
+  letterFull.classList.remove("show");
+  envelopeWrap.classList.remove("opened");
+});
+
+/* ---------- floating paw prints in background ---------- */
+const pawsContainer = document.getElementById("paws");
+const pawEmojis = ["🐾"];
+for(let i = 0; i < 14; i++){
+  const span = document.createElement("span");
+  span.textContent = "🐾";
+  span.style.left = Math.random() * 100 + "vw";
+  span.style.top = Math.random() * 100 + "vh";
+  span.style.setProperty("--r", (Math.random() * 60 - 30) + "deg");
+  span.style.fontSize = (14 + Math.random() * 16) + "px";
+  pawsContainer.appendChild(span);
+}
+</script>
+</body>
+</html>
